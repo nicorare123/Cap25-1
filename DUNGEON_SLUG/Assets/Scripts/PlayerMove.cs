@@ -34,6 +34,8 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rigid;
     bool isJumping = false;
 
+    float horizontal;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +62,9 @@ public class PlayerMove : MonoBehaviour
         {
             ThrowGrenade();
         }
+
+        animator.SetFloat("Speed", horizontal);
+        animator.SetBool("IsGrounded", IsGrounded());
     }
 
     private void FixedUpdate()
@@ -168,16 +173,18 @@ public class PlayerMove : MonoBehaviour
     }
     void Move()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal");
 
         movement = new Vector3(horizontal, 0, 0).normalized;
 
         if (horizontal > 0)
         {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             lastDirection = Vector2.right;
         }
         else if (horizontal < 0)
         {
+            transform.rotation = Quaternion.Euler(0, 180f, 0);
             lastDirection = Vector2.left;
         }
         transform.position += movement * speed * Time.deltaTime;
@@ -192,7 +199,11 @@ public class PlayerMove : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.2f, groundLayer);
+
+        Debug.DrawRay(groundCheck.position, Vector2.down * 0.2f, Color.red);
+
+        return hit.collider != null;
     }
 
     void Fire()
