@@ -146,16 +146,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jump: 11
+  PlayerTr: {fileID: 0}
   groundCheck: {fileID: 8061496652362280867}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   bulletPrefab: {fileID: 0}
-  bulletSpeed: 10
+  grenadePrefab: {fileID: 0}
+  bulletSpeed: 15
   fireOffset: 0.5
+  throwForce: 4
+  throwUpwardForce: 12
   holdUp: 0
   holdDown: 0
-  animator: {fileID: 953835980316025372}
+  currentWeapon: 0
+  pistolPrefab: {fileID: 0}
+  machineGunPrefab: {fileID: 0}
+  rocketLauncherPrefab: {fileID: 0}
+  laserGunPrefab: {fileID: 0}
+  flameThrowerPrefab: {fileID: 0}
 --- !u!50 &6190102414018767873
 Rigidbody2D:
   serializedVersion: 4
@@ -171,7 +180,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
