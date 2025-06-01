@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Recorder.OutputPath;
 
 public class Laser : MonoBehaviour
 {
@@ -15,7 +14,6 @@ public class Laser : MonoBehaviour
 
     public float laserOffset = 15.0f;
     public Transform muzzleTransform;
-    // Start is called before the first frame update
     void Start()
     {
         player = GetComponentInParent<PlayerMove>();
