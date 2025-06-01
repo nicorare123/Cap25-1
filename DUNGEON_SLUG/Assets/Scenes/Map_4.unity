@@ -1675,19 +1675,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jump: 10
+  PlayerTr: {fileID: 0}
   groundCheck: {fileID: 699310292}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   bulletPrefab: {fileID: 2340950052688776092, guid: a940afcefe9134243a561ad81e673bde, type: 3}
+  grenadePrefab: {fileID: 1470239504583586309, guid: 238b1d5998edcbd4ab95dfdf9973cf08, type: 3}
   bulletSpeed: 15
   fireOffset: 0.5
-  grenadePrefab: {fileID: 1470239504583586309, guid: 238b1d5998edcbd4ab95dfdf9973cf08, type: 3}
   throwForce: 4
   throwUpwardForce: 12
   holdUp: 0
   holdDown: 0
-  animator: {fileID: 0}
   currentWeapon: 0
   pistolPrefab: {fileID: 6733470552493449747, guid: 2b028900d25ca524dbe73e27095a33e1, type: 3}
   machineGunPrefab: {fileID: 4443508469863665333, guid: b1320e7ef3738cb46bce56fb49ceb8de, type: 3}

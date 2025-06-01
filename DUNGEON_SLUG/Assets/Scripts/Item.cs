@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Rifle, Shotgun, Laser, Rocket }
 public class Item : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.CompareTag("Player"))
+        {
+            PlayerMove player = collision.GetComponent<PlayerMove>();
+            if (player != null)
+            {
+                player.PickupItem();
+            }
+            Destroy(gameObject);
+        }
     }
 }
