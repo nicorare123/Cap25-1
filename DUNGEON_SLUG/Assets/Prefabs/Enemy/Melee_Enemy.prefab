@@ -101,14 +101,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   currentState: 0
+  eliteState: 5
   Player: {fileID: 0}
+  bulletPrefab: {fileID: 0}
   moveSpeed: 3
   meleeAttackRange: 2.2
   shootRange: 8
   verticalRange: 1.2
-  bulletPrefab: {fileID: 0}
-  bulletSpeed: 6
-  shootCoolDown: 1.5
+  bulletSpeed: 10
+  shootCoolDown: 1.2
 --- !u!50 &2125034471192151567
 Rigidbody2D:
   serializedVersion: 4

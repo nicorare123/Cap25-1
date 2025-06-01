@@ -103,12 +103,12 @@ MonoBehaviour:
   currentState: 0
   eliteState: 5
   Player: {fileID: 0}
+  bulletPrefab: {fileID: 1746943276900939535, guid: 08c81ae058b908a46aeb61002808504c, type: 3}
   moveSpeed: 3
   meleeAttackRange: 2.2
   shootRange: 8
   verticalRange: 1.2
-  bulletPrefab: {fileID: 1746943276900939535, guid: 08c81ae058b908a46aeb61002808504c, type: 3}
-  bulletSpeed: 8
+  bulletSpeed: 10
   shootCoolDown: 1.2
 --- !u!61 &7478082952802975921
 BoxCollider2D:

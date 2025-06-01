@@ -10,29 +10,28 @@ public class Enemy : MonoBehaviour
     public EnemyType enemyType;
     public EnemyState currentState;
     public EliteState eliteState = EliteState.Wait;
-    public Transform Player;
-    public float moveSpeed = 3.0f;
 
+    public Transform Player;
+    public GameObject bulletPrefab;
+
+    public float moveSpeed = 3.0f;
     public float meleeAttackRange = 2.2f;
     public float shootRange = 8.0f;
     public float verticalRange = 1.2f;
-
-    public GameObject bulletPrefab;
-    public float bulletSpeed = 8.0f;
-
+    public float bulletSpeed = 10.0f;
     public float shootCoolDown = 1.2f;
     private float shootTimer = 0f;
     private float delayTimer = 0f;
-    private bool hasEntered = false;
 
+    private bool hasEntered = false;
     private bool isAttacking = false;
-    
+
     private void Start()
     {
-        if(Player == null)
+        if (Player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if(playerObj != null)
+            if (playerObj != null)
             {
                 Player = playerObj.transform;
             }
@@ -67,7 +66,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if(xDiff <= meleeAttackRange)
+        if (xDiff <= meleeAttackRange)
         {
             currentState = EnemyState.MeleeAttack;
             MeleeAttack();
@@ -88,24 +87,24 @@ public class Enemy : MonoBehaviour
 
         float xRange = 1.0f;
 
-        if(distance <= meleeAttackRange && absYDiff < verticalRange)
+        if (distance <= meleeAttackRange && absYDiff < verticalRange)
         {
             currentState = EnemyState.MeleeAttack;
             MeleeAttack();
         }
-        else if(distance <= shootRange)
+        else if (distance <= shootRange)
         {
-            if(absYDiff < verticalRange)
+            if (absYDiff < verticalRange)
             {
                 currentState = EnemyState.Shoot;
                 Shoot();
             }
-            else if(yDiff > verticalRange && xDiff < xRange)
+            else if (yDiff > verticalRange && xDiff < xRange)
             {
                 currentState = EnemyState.Shoot;
                 ShootUp();
             }
-            else if(yDiff < -verticalRange)
+            else if (yDiff < -verticalRange)
             {
                 currentState = EnemyState.Idle;
                 Idle();
@@ -123,7 +122,7 @@ public class Enemy : MonoBehaviour
         float attackDelay = 1.0f;
         float distance = Vector2.Distance(transform.position, Player.position);
 
-        if(!hasEntered && distance > shootRange)
+        if (!hasEntered && distance > shootRange)
         {
             currentState = EnemyState.Chase;
             Chase();
@@ -180,7 +179,7 @@ public class Enemy : MonoBehaviour
     {
         shootTimer += Time.deltaTime;
 
-        if(tripleCount < 3 && shootTimer >= tripleDelay)
+        if (tripleCount < 3 && shootTimer >= tripleDelay)
         {
             shootTimer = 0;
             tripleCount++;
@@ -190,7 +189,7 @@ public class Enemy : MonoBehaviour
             FireBullet(pos, dir);
         }
 
-        if(tripleCount >= 3)
+        if (tripleCount >= 3)
         {
             tripleCount = 0;
             eliteState = EliteState.Wait;
@@ -204,18 +203,18 @@ public class Enemy : MonoBehaviour
     void SpreadShoot()
     {
         shootTimer += Time.deltaTime;
-        if(!spreadFired && shootTimer >= spreadDelay )
+        if (!spreadFired && shootTimer >= spreadDelay)
         {
             shootTimer = 0;
             spreadCount++;
 
-            for(int i = -90; i <= 90; i += 10)
+            for (int i = -90; i <= 90; i += 15)
             {
                 Vector2 dir = Quaternion.Euler(0, 0, i) * Vector2.up;
                 FireBullet(transform.position, dir);
             }
 
-            if(spreadCount >= 3)
+            if (spreadCount >= 3)
             {
                 spreadCount = 0;
                 spreadFired = false;
@@ -233,7 +232,7 @@ public class Enemy : MonoBehaviour
     {
         shootTimer += Time.deltaTime;
 
-        if(rainCount < 25 && shootTimer >= rainDelay )
+        if (rainCount < 25 && shootTimer >= rainDelay)
         {
             shootTimer = 0;
             rainCount++;
@@ -245,7 +244,7 @@ public class Enemy : MonoBehaviour
             FireBullet(spawnPos, Vector2.down);
         }
 
-        if(rainCount >= 25)
+        if (rainCount >= 25)
         {
             rainCount = 0;
             eliteState = EliteState.Wait;
@@ -259,7 +258,7 @@ public class Enemy : MonoBehaviour
     {
         shootTimer += Time.deltaTime;
 
-        if(sweepCount < 25 && shootTimer >= sweepDelay )
+        if (sweepCount < 25 && shootTimer >= sweepDelay)
         {
             shootTimer = 0;
             sweepCount++;
@@ -284,7 +283,7 @@ public class Enemy : MonoBehaviour
             FireBullet(spawnPos, direction);
         }
 
-        if(sweepCount >= 25)
+        if (sweepCount >= 25)
         {
             sweepCount = 0;
             eliteState = EliteState.Wait;
@@ -299,7 +298,7 @@ public class Enemy : MonoBehaviour
     {
         shootTimer += Time.deltaTime;
 
-        if(randSpreadCount < 25 && shootTimer >= randSpreadDelay)
+        if (randSpreadCount < 25 && shootTimer >= randSpreadDelay)
         {
             shootTimer = 0;
             randSpreadCount++;
@@ -309,7 +308,7 @@ public class Enemy : MonoBehaviour
             FireBullet(transform.position, dir);
         }
 
-        if(randSpreadCount >= 25)
+        if (randSpreadCount >= 25)
         {
             randSpreadCount = 0;
             eliteState = EliteState.Wait;
@@ -317,7 +316,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+
     void Chase()
     {
         Vector2 targetPos = new Vector2(Player.position.x, transform.position.y);
@@ -338,7 +337,7 @@ public class Enemy : MonoBehaviour
     void Shoot()
     {
         shootTimer += Time.deltaTime;
-        if(shootTimer >= shootCoolDown)
+        if (shootTimer >= shootCoolDown)
         {
             shootTimer = 0;
 
