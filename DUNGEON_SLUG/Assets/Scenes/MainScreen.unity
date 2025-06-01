@@ -319,6 +319,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jump: 11
+  groundCheck: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  bulletPrefab: {fileID: 0}
+  bulletSpeed: 10
+  fireOffset: 0.5
+  grenadePrefab: {fileID: 0}
+  throwForce: 5
+  throwUpwardForce: 6
+  holdUp: 0
+  holdDown: 0
+  animator: {fileID: 0}
+  currentWeapon: 0
+  pistolPrefab: {fileID: 0}
+  machineGunPrefab: {fileID: 0}
+  rocketLauncherPrefab: {fileID: 0}
+  laserGunPrefab: {fileID: 0}
+  flameThrowerPrefab: {fileID: 0}
 --- !u!212 &467884701
 SpriteRenderer:
   m_ObjectHideFlags: 0
