@@ -12,10 +12,20 @@ public class MachineGun : MonoBehaviour
 
     private float fireTimer = 0.0f;
 
+    public Transform muzzleTransform;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponentInParent<PlayerMove>();
+        Transform found = player.transform.Find("FirePosition");
+        if (found != null)
+        {
+            muzzleTransform = found;
+        }
+        else
+        {
+            Debug.LogWarning("FirePosition 오브젝트를 찾을 수 없습니다.");
+        }
     }
     // Update is called once per frame
     void Update()
@@ -30,10 +40,10 @@ public class MachineGun : MonoBehaviour
                 if (!player.UseAmmo()) return;
 
                 Vector2 dir = player.GetFireDirection();
-                Vector2 pos = (Vector2)transform.position + dir * player.fireOffset;
+                Vector2 pos = muzzleTransform.position;
 
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.Euler(0, 0, angle + 90f);
+                Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
                 GameObject bullet = Instantiate(bulletPrefab, pos, rotation);
                 MyBullet bulletScript = bullet.GetComponent<MyBullet>();

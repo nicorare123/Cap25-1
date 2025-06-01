@@ -15,7 +15,11 @@ public class Grenade : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("ÇÇ°Ý");
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(5);
+            }
             Destroy(gameObject);
         }
     }

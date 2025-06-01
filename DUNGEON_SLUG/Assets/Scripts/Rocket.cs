@@ -11,9 +11,19 @@ public class Rocket : MonoBehaviour
     private float fireTimer = 0f;
     private PlayerMove player;
 
+    public Transform muzzleTransform;
     void Start()
     {
         player = GetComponentInParent<PlayerMove>();
+        Transform found = player.transform.Find("FirePosition");
+        if (found != null)
+        {
+            muzzleTransform = found;
+        }
+        else
+        {
+            Debug.LogWarning("FirePosition 오브젝트를 찾을 수 없습니다.");
+        }
         fireTimer = fireDelay;
     }
 
@@ -28,13 +38,13 @@ public class Rocket : MonoBehaviour
             if (!player.UseAmmo()) return;
 
             Vector2 dir = player.GetFireDirection();
-            Vector2 pos = (Vector2)transform.position + dir * player.fireOffset;
+            Vector2 pos = muzzleTransform.position;
 
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.Euler(0, 0, angle + 90f);
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
             GameObject rocket = Instantiate(rocketPrefab, pos, rotation);
-            MyBullet rocketScript = rocket.GetComponent<MyBullet>();
+            MyRocket rocketScript = rocket.GetComponent<MyRocket>();
             rocketScript.direction = dir;
             rocketScript.speed = rocketSpeed;
         }

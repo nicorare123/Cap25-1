@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { Melee, Ranged, Elite }
+public enum EnemyType { Melee, Ranged, Elite, Boss }
 public enum EnemyState { Idle, Chase, MeleeAttack, Shoot }
 public enum EliteState { Triple, Spread, Rain, Sweep, RandomSpread, Wait }
 public class Enemy : MonoBehaviour
@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     private bool hasEntered = false;
 
     private bool isAttacking = false;
+
+    public int maxHP;
+    private int currentHP;
     
     private void Start()
     {
@@ -37,6 +40,40 @@ public class Enemy : MonoBehaviour
                 Player = playerObj.transform;
             }
         }
+
+        switch (enemyType)
+        {
+            case EnemyType.Melee:
+                maxHP = 10;
+                break;
+            case EnemyType.Ranged:
+                maxHP = 5;
+                break;
+            case EnemyType.Elite:
+                maxHP = 30;
+                break;
+            case EnemyType.Boss:
+                maxHP = 300;
+                break;
+        }
+
+        currentHP = maxHP;
+    }
+    public void TakeDamage(int dmg)
+    {
+        currentHP -= dmg;
+        Debug.Log($"{enemyType} 적 피격됨! 남은 체력: {currentHP}");
+
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log($"{enemyType} 적 사망");
+        Destroy(gameObject);
     }
     // Update is called once per frame
     void Update()

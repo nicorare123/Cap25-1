@@ -7,6 +7,7 @@ public class MyBullet : MonoBehaviour
     public Vector2 direction;
     public float speed;
     public float lifeTime = 2f;
+    public int damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,11 @@ public class MyBullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("ÇÇ°Ý");
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }

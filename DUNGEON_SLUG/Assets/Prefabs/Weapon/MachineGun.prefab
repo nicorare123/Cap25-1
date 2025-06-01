@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.920817, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.920817, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,3 +100,4 @@ MonoBehaviour:
   bulletPrefab: {fileID: 696895187577885307, guid: b92c2d5a460eb22418a78346f50954a9, type: 3}
   bulletSpeed: 15
   fireDelay: 0.1
+  muzzleTransform: {fileID: 0}

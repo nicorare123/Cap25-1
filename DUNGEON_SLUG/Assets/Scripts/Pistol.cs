@@ -10,9 +10,19 @@ public class Pistol : MonoBehaviour
 
     private PlayerMove player;
 
+    public Transform muzzleTransform;
     void Start()
     {
         player = GetComponentInParent<PlayerMove>();
+        Transform found = player.transform.Find("FirePosition");
+        if (found != null)
+        {
+            muzzleTransform = found;
+        }
+        else
+        {
+            Debug.LogWarning("FirePosition 오브젝트를 찾을 수 없습니다.");
+        }
     }
 
     void Update()
@@ -20,7 +30,7 @@ public class Pistol : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             Vector2 direction = player.GetFireDirection();
-            Vector2 firePos = (Vector2)transform.position + direction * fireOffset;
+            Vector2 firePos = muzzleTransform.position;
 
             GameObject bullet = Instantiate(bulletPrefab, firePos, Quaternion.identity);
             MyBullet bulletScript = bullet.GetComponent<MyBullet>();

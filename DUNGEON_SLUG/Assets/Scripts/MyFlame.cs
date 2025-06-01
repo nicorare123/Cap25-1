@@ -13,9 +13,10 @@ public class MyFlame : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        Enemy enemy = collision.GetComponent<Enemy>();
+        if (enemy != null)
         {
-            Debug.Log("레이저 피격");
+            enemy.TakeDamage(10);
         }
     }
 }

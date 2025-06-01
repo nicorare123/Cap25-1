@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Recorder.OutputPath;
 
 public class Laser : MonoBehaviour
 {
@@ -13,10 +14,20 @@ public class Laser : MonoBehaviour
     private GameObject activeLaser;
 
     public float laserOffset = 15.0f;
+    public Transform muzzleTransform;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponentInParent<PlayerMove>();
+        Transform found = player.transform.Find("FirePosition");
+        if (found != null)
+        {
+            muzzleTransform = found;
+        }
+        else
+        {
+            Debug.LogWarning("FirePosition 오브젝트를 찾을 수 없습니다.");
+        }
     }
 
     // Update is called once per frame
@@ -35,15 +46,18 @@ public class Laser : MonoBehaviour
                     return;
                 }
             }
-
+            Vector2 dir = player.GetFireDirection();
+            Vector2 spawnPos = (Vector2)muzzleTransform.position + dir * laserOffset;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion rot = Quaternion.Euler(0, 0, angle);
             if (activeLaser == null)
             {
-                Vector2 dir = player.GetFireDirection();
-                Vector2 spawnPos = (Vector2)transform.position + dir * (fireOffset + laserOffset);
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-                Quaternion rot = Quaternion.Euler(0, 0, angle);
                 activeLaser = Instantiate(laserPrefab, spawnPos, rot, transform);
+            }
+            else
+            {
+                activeLaser.transform.position = spawnPos;
+                activeLaser.transform.rotation = rot;
             }
         }
         else

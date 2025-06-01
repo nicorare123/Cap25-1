@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public enum WeaponType { Normal, MachineGun, Laser, Rocket, Flame }
 public class PlayerMove : MonoBehaviour
@@ -27,20 +27,40 @@ public class PlayerMove : MonoBehaviour
     public GameObject laserGunPrefab;
     public GameObject flameThrowerPrefab;
     private GameObject currentWeaponPrefab;
-
+    public Transform muzzleTransform;
+    public int grenadeCount = 10;
     private Vector2 lastDirection = Vector2.right;
 
     Vector3 movement;
     Rigidbody2D rigid;
     bool isJumping = false;
+    public bool isTitleScene = false;
 
     float horizontal;
     public Animator animator;
+
+    public Text livesText;
+    public Text grenadeText;
+    public Image weaponIcon;
+    public Text ammoText;
+
+    public Sprite pistolIcon, machineGunIcon, laserIcon, rocketIcon, flameIcon;
+
+    public int lives = 3;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        Transform found = transform.Find("FirePosition");
+        if (found != null)
+        {
+            muzzleTransform = found;
+        }
+        else
+        {
+            Debug.LogWarning("FirePosition 오브젝트를 찾을 수 없습니다.");
+        }
     }
 
     // Update is called once per frame
@@ -75,7 +95,27 @@ public class PlayerMove : MonoBehaviour
             Jump();
         }
     }
+    void UpdateLivesUI()
+    {
+        if (isTitleScene) return;
+        livesText.text = "x " + lives.ToString();
+    }
 
+    void UpdateWeaponUI()
+    {
+        if (isTitleScene) return;
+        grenadeText.text = "x " + grenadeCount.ToString();
+        ammoText.text = currentWeapon == WeaponType.Normal ? "x Infinite" : "x " + ammoCount.ToString();
+
+        switch (currentWeapon)
+        {
+            case WeaponType.Normal: weaponIcon.sprite = pistolIcon; break;
+            case WeaponType.MachineGun: weaponIcon.sprite = machineGunIcon; break;
+            case WeaponType.Laser: weaponIcon.sprite = laserIcon; break;
+            case WeaponType.Rocket: weaponIcon.sprite = rocketIcon; break;
+            case WeaponType.Flame: weaponIcon.sprite = flameIcon; break;
+        }
+    }
     public Vector2 GetFireDirection()
     {
         if (holdUp) return Vector2.up;
@@ -89,6 +129,7 @@ public class PlayerMove : MonoBehaviour
         if (currentWeapon == WeaponType.Normal) return true;
 
         ammoCount--;
+        UpdateWeaponUI();
         if (ammoCount <= 0)
         {
             DestroyCurrentWeapon();
@@ -118,6 +159,7 @@ public class PlayerMove : MonoBehaviour
                     break;
             }
             Debug.Log("장탄 추가: " + ammoCount);
+            UpdateWeaponUI();
             return;
         }
         DestroyCurrentWeapon();
@@ -128,7 +170,7 @@ public class PlayerMove : MonoBehaviour
         {
             case WeaponType.Normal:
                 currentWeaponPrefab = Instantiate(pistolPrefab, transform.position, Quaternion.identity, transform);
-                ammoCount = -1; // 무한
+                ammoCount = -1;
                 break;
             case WeaponType.MachineGun:
                 currentWeaponPrefab = Instantiate(machineGunPrefab, transform.position, Quaternion.identity, transform);
@@ -148,6 +190,7 @@ public class PlayerMove : MonoBehaviour
                 break;
         }
         Debug.Log("무기 변경 : " + currentWeapon + ammoCount + "발");
+        UpdateWeaponUI();
     }
 
     void DestroyCurrentWeapon()
@@ -170,6 +213,11 @@ public class PlayerMove : MonoBehaviour
 
         WeaponType randomWeapon = weapons[Random.Range(0, weapons.Length)];
         ChangeWeapon(randomWeapon);
+
+        grenadeCount += 10;
+        if (grenadeCount > 99) grenadeCount = 99;
+
+        UpdateWeaponUI();
     }
     void Move()
     {
@@ -211,7 +259,7 @@ public class PlayerMove : MonoBehaviour
         if (currentWeapon != WeaponType.Normal) return;
 
         Vector2 direction = GetFireDirection();
-        Vector2 firePos = (Vector2)transform.position + direction * fireOffset;
+        Vector2 firePos = muzzleTransform.position;
 
         GameObject bullet = Instantiate(bulletPrefab, firePos, Quaternion.identity);
         MyBullet bulletScript = bullet.GetComponent<MyBullet>();
@@ -221,6 +269,13 @@ public class PlayerMove : MonoBehaviour
     }
     void ThrowGrenade()
     {
+        if (!isTitleScene && grenadeCount <= 0) return;
+
+        if (!isTitleScene)
+        {
+            grenadeCount--;
+            UpdateWeaponUI();
+        }
         Vector2 spawnPos = (Vector2)transform.position + lastDirection * 0.5f + Vector2.up * 0.5f;
         GameObject grenade = Instantiate(grenadePrefab, spawnPos, Quaternion.identity);
 
