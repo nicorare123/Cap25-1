@@ -1639,11 +1639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333212623464369963, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.733017
+      value: 7.880619
       objectReference: {fileID: 0}
     - target: {fileID: 3333212623464369963, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.49913
+      value: 3.49838
       objectReference: {fileID: 0}
     - target: {fileID: 8572385891635295072, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: m_Name
@@ -1671,6 +1671,11 @@ Transform:
 --- !u!4 &154250890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8061496652362280867, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
+  m_PrefabInstance: {fileID: 154250887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &154250891 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2718575774106493887, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
   m_PrefabInstance: {fileID: 154250887}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &161422692
@@ -2526,7 +2531,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 154250891}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -2555,7 +2560,7 @@ Transform:
   m_GameObject: {fileID: 258370317}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -47.3, y: -3.1, z: -10}
+  m_LocalPosition: {x: -49, y: -3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
