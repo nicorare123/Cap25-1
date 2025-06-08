@@ -24,6 +24,12 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            PlayerMove player = collision.GetComponent<PlayerMove>();
+            if (player != null)
+            {
+                player.TakeDamage();
+            }
+
             Debug.Log("ÇÇ°Ý");
             Destroy(gameObject);
         }

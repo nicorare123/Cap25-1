@@ -48,9 +48,13 @@ public class PlayerMove : MonoBehaviour
 
     public int lives = 3;
 
+    public SkinnedMeshRenderer[] skinnedMeshes;
+
     // Start is called before the first frame update
     void Start()
     {
+        //skinnedMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+
         rigid = GetComponent<Rigidbody2D>();
         Transform found = transform.Find("FirePosition");
         if (found != null)
@@ -66,6 +70,10 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isDead)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.K) && IsGrounded())
         {
             isJumping = true;
@@ -89,6 +97,11 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(isDead)
+        {
+            return;
+        }
+
         Move();
         if (isJumping)
         {
@@ -98,7 +111,96 @@ public class PlayerMove : MonoBehaviour
     void UpdateLivesUI()
     {
         if (isTitleScene) return;
-        livesText.text = "x " + lives.ToString();
+        //livesText.text = "x " + lives.ToString();
+    }
+
+    public GameObject gameOverPanel;
+    private bool isDead = false;
+    private bool isInvincible = false;
+
+    public void TakeDamage()
+    {
+        if (isDead || isInvincible) return;
+
+        lives--;
+        UpdateLivesUI();
+
+        if (lives <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            StartCoroutine(RespawnPlayer());
+        }
+    }
+
+    IEnumerator RespawnPlayer()
+    {
+        isDead = true;
+        animator.SetBool("IsDie", true);
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        transform.position = Vector3.up * 1.5f;
+
+        animator.SetBool("IsDie", false);
+        isDead = false;
+
+        StartCoroutine(InvincibilityCoroutine());
+    }
+
+    IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        float blinkDuration = 0.2f;
+        float timer = 0f;
+
+        while (timer < 3f)
+        {
+            SetRenderersAlpha(0.3f); // 반투명
+            yield return new WaitForSeconds(blinkDuration);
+
+            SetRenderersAlpha(1f);   // 원래대로
+            yield return new WaitForSeconds(blinkDuration);
+
+            timer += blinkDuration * 2;
+        }
+
+        SetRenderersAlpha(1f); // 최종 복원
+        isInvincible = false;
+    }
+
+    void SetRenderersAlpha(float alpha)
+    {
+        foreach (var renderer in skinnedMeshes)
+        {
+            foreach (Material mat in renderer.materials)
+            {
+                if (mat.HasProperty("_Color"))
+                {
+                    Color color = mat.color;
+                    color.a = alpha;
+                    mat.color = color;
+
+                    // 알파 블렌딩 활성화
+                    mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    mat.SetInt("_ZWrite", 0);
+                    mat.DisableKeyword("_ALPHATEST_ON");
+                    mat.EnableKeyword("_ALPHABLEND_ON");
+                    mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    mat.renderQueue = 3000;
+                }
+            }
+        }
+    }
+
+    void GameOver()
+    {
+        isDead = true;
+        animator.SetBool("IsDie", true);
+        gameOverPanel.SetActive(true);
     }
 
     void UpdateWeaponUI()
