@@ -5,11 +5,14 @@ using UnityEngine;
 public enum EnemyType { Melee, Ranged, Elite, Boss }
 public enum EnemyState { Idle, Chase, MeleeAttack, Shoot }
 public enum EliteState { Triple, Spread, Rain, Sweep, RandomSpread, Wait }
+
+public enum BossState { Triple, Spread, Rain, Sweep, RandomSpread, Wait }
 public class Enemy : MonoBehaviour
 {
     public EnemyType enemyType;
     public EnemyState currentState;
     public EliteState eliteState = EliteState.Wait;
+    public BossState bossState = BossState.Wait;
     public Transform Player;
     public float moveSpeed = 3.0f;
 
@@ -40,6 +43,8 @@ public class Enemy : MonoBehaviour
                 Player = playerObj.transform;
             }
         }
+
+        //item.GetComponent<ItemManager>.SpawnItem();
 
         switch (enemyType)
         {
@@ -88,6 +93,9 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyType.Elite:
                 EliteEnemy();
+                break;
+            case EnemyType.Boss:
+                BossEnemy();
                 break;
         }
     }
@@ -197,7 +205,7 @@ public class Enemy : MonoBehaviour
                 TripleShoot();
                 break;
             case EliteState.Spread:
-                SpreadShoot();
+                SpreadShoot(1f);
                 break;
             case EliteState.Rain:
                 RainShoot();
@@ -206,11 +214,65 @@ public class Enemy : MonoBehaviour
                 SweepShoot();
                 break;
             case EliteState.RandomSpread:
-                RandomSpreadShoot();
+                RandomSpreadShoot(1f);
                 break;
         }
     }
+    void BossEnemy()
+    {
+        float attackDelay = 1.0f;
+        float distance = Vector2.Distance(transform.position, Player.position);
 
+        if (!hasEntered && distance > shootRange)
+        {
+            currentState = EnemyState.Chase;
+            Chase();
+            return;
+        }
+
+        hasEntered = true;
+        currentState = EnemyState.Shoot;
+
+        if (bossState == BossState.Wait)
+        {
+            delayTimer += Time.deltaTime;
+
+            if (delayTimer >= attackDelay)
+            {
+                isAttacking = false;
+                bossState = (BossState)Random.Range(0, 5);
+                shootTimer = 0.0f;
+                delayTimer = 0.0f;
+            }
+            return;
+        }
+
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            shootTimer = 0;
+            Debug.Log("현재 패턴 : " + eliteState);
+        }
+
+        switch (bossState)
+        {
+            case BossState.Triple:
+                TripleShoot();
+                break;
+            case BossState.Spread:
+                SpreadShoot(-1f);
+                break;
+            case BossState.Rain:
+                RainShoot();
+                break;
+            case BossState.Sweep:
+                SweepShoot();
+                break;
+            case BossState.RandomSpread:
+                RandomSpreadShoot(-1f);
+                break;
+        }
+    }
     int tripleCount = 0;
     float tripleDelay = 0.3f;
     void TripleShoot()
@@ -231,6 +293,7 @@ public class Enemy : MonoBehaviour
         {
             tripleCount = 0;
             eliteState = EliteState.Wait;
+            bossState = BossState.Wait;
             shootTimer = 0f;
         }
     }
@@ -238,7 +301,7 @@ public class Enemy : MonoBehaviour
     int spreadCount = 0;
     float spreadDelay = 0.3f;
     bool spreadFired = false;
-    void SpreadShoot()
+    void SpreadShoot(float aa)
     {
         shootTimer += Time.deltaTime;
         if(!spreadFired && shootTimer >= spreadDelay )
@@ -248,7 +311,7 @@ public class Enemy : MonoBehaviour
 
             for(int i = -90; i <= 90; i += 10)
             {
-                Vector2 dir = Quaternion.Euler(0, 0, i) * Vector2.up;
+                Vector2 dir = Quaternion.Euler(0, 0, i) * Vector2.up * aa;
                 FireBullet(transform.position, dir);
             }
 
@@ -257,6 +320,7 @@ public class Enemy : MonoBehaviour
                 spreadCount = 0;
                 spreadFired = false;
                 eliteState = EliteState.Wait;
+                bossState = BossState.Wait;
                 shootTimer = 0f;
             }
         }
@@ -286,6 +350,8 @@ public class Enemy : MonoBehaviour
         {
             rainCount = 0;
             eliteState = EliteState.Wait;
+            bossState = BossState.Wait;
+            bossState = BossState.Wait;
             shootTimer = 0f;
         }
     }
@@ -325,6 +391,7 @@ public class Enemy : MonoBehaviour
         {
             sweepCount = 0;
             eliteState = EliteState.Wait;
+            bossState = BossState.Wait;
             shootTimer = 0f;
         }
     }
@@ -332,7 +399,7 @@ public class Enemy : MonoBehaviour
     int randSpreadCount = 0;
     float randSpreadDelay = 0.3f;
 
-    void RandomSpreadShoot()
+    void RandomSpreadShoot(float aa)
     {
         shootTimer += Time.deltaTime;
 
@@ -342,7 +409,7 @@ public class Enemy : MonoBehaviour
             randSpreadCount++;
 
             float angle = Random.Range(-90f, 90f);
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up;
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up * aa;
             FireBullet(transform.position, dir);
         }
 
@@ -350,11 +417,33 @@ public class Enemy : MonoBehaviour
         {
             randSpreadCount = 0;
             eliteState = EliteState.Wait;
+            bossState = BossState.Wait;
+            shootTimer = 0f;
+        }
+    }
+    void B_RandomSpreadShoot()
+    {
+        shootTimer += Time.deltaTime;
+
+        if (randSpreadCount < 25 && shootTimer >= randSpreadDelay)
+        {
+            shootTimer = 0;
+            randSpreadCount++;
+
+            float angle = Random.Range(-90f, 90f);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up;
+            FireBullet(transform.position, dir);
+        }
+
+        if (randSpreadCount >= 25)
+        {
+            randSpreadCount = 0;
+            eliteState = EliteState.Wait;
+            bossState = BossState.Wait;
             shootTimer = 0f;
         }
     }
 
-    
     void Chase()
     {
         Vector2 targetPos = new Vector2(Player.position.x, transform.position.y);
