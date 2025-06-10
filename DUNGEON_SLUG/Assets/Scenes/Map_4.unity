@@ -1851,7 +1851,7 @@ PrefabInstance:
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: ammoText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 940260627}
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: animator
       value: 
@@ -1859,7 +1859,7 @@ PrefabInstance:
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: livesText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 926719705}
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: pistolIcon
       value: 
@@ -1867,11 +1867,11 @@ PrefabInstance:
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: weaponIcon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2126987318}
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: grenadeText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 956727522}
     - target: {fileID: 143511260413611799, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
       propertyPath: groundCheck
       value: 
