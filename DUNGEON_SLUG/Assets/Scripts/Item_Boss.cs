@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Item : MonoBehaviour
+public class Item_Boss : MonoBehaviour
 {
     public float speed = 2.0f;
 
@@ -18,16 +18,16 @@ public class Boss_Item : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (collision.gameObject.name == "Floor")
+        else if (collision.gameObject.name == "Ground") //충돌해서 자폭하는 조건 
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 2.0f); //2초 뒤에 사라짐
             Debug.Log("자폭"); //자폭 확인용
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-     
+        dir = Vector3.right;
     }
 
     // Update is called once per frame

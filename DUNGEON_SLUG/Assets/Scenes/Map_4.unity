@@ -272,6 +272,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &168994180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 168994181}
+  m_Layer: 0
+  m_Name: Spwan_Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &168994181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168994180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.75, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1041472504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258370317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,6 +1494,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984615248}
   m_CullTransparentMesh: 1
+--- !u!4 &1041472504 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6984194895984353024, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+  m_PrefabInstance: {fileID: 2208014739709903100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047260988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,6 +1566,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1213275187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1213275188}
+  m_Layer: 0
+  m_Name: Spwan_Point (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1213275188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213275187}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.87, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1041472504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257499203
 GameObject:
@@ -1661,6 +1728,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.826667, y: 1.7066667}
   m_EdgeRadius: 0
+--- !u!1 &1264680340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264680341}
+  m_Layer: 0
+  m_Name: Spwan_Point (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264680341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264680340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 31.19, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1041472504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1346745448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8061496652362280867, guid: b88edd12ab5bfea48be126b6fa56c4c1, type: 3}
@@ -2202,16 +2300,40 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      propertyPath: SpwanPoint1
+      value: 
+      objectReference: {fileID: 168994180}
+    - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      propertyPath: SpwanPoint2
+      value: 
+      objectReference: {fileID: 1264680340}
+    - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      propertyPath: SpwanPoint3
+      value: 
+      objectReference: {fileID: 1213275187}
+    - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      propertyPath: SpwanPount1
+      value: 
+      objectReference: {fileID: 168994180}
+    - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      propertyPath: SpwanPount2
+      value: 
+      objectReference: {fileID: 1264680340}
+    - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      propertyPath: SpwanPount3
+      value: 
+      objectReference: {fileID: 1213275187}
+    - target: {fileID: 2162740500962870169, guid: f05b8be880098304a9b439b802bcd017, type: 3}
       propertyPath: SpwanTarget
       value: 
-      objectReference: {fileID: 8610210054138104756, guid: 9b4839bc0db74094786780ad8ba36c4a, type: 3}
+      objectReference: {fileID: 3211829864739438106, guid: a4e1563a59555104c8f3a17b73ac20d6, type: 3}
     - target: {fileID: 4172773469284422963, guid: f05b8be880098304a9b439b802bcd017, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.58
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 4172773469284422963, guid: f05b8be880098304a9b439b802bcd017, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6984194895984353024, guid: f05b8be880098304a9b439b802bcd017, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2259,7 +2381,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6984194895984353024, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 168994181}
+    - targetCorrespondingSourceObject: {fileID: 6984194895984353024, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1264680341}
+    - targetCorrespondingSourceObject: {fileID: 6984194895984353024, guid: f05b8be880098304a9b439b802bcd017, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1213275188}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f05b8be880098304a9b439b802bcd017, type: 3}
 --- !u!1001 &8015383453848908370
