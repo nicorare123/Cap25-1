@@ -111,7 +111,7 @@ public class PlayerMove : MonoBehaviour
     void UpdateLivesUI()
     {
         if (isTitleScene) return;
-        livesText.text = "x " + lives.ToString();
+        //livesText.text = "x " + lives.ToString();
     }
     private bool isDead = false;
     private bool isInvincible = false;
@@ -133,14 +133,19 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
     IEnumerator RespawnPlayer()
     {
         isDead = true;
         animator.SetBool("IsDie", true);
 
+        animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 0f);
+
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        transform.position = Vector3.up * 1.5f;
+        transform.position = this.transform.position + new Vector3(-8f, 1.0f, 0f);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 1f);
 
         animator.SetBool("IsDie", false);
         isDead = false;
