@@ -111,7 +111,7 @@ public class PlayerMove : MonoBehaviour
     void UpdateLivesUI()
     {
         if (isTitleScene) return;
-        //livesText.text = "x " + lives.ToString();
+        livesText.text = "x " + lives.ToString();
     }
 
     public GameObject gameOverPanel;
