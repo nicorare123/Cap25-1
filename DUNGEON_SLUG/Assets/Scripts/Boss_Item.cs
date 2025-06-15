@@ -7,6 +7,8 @@ public class Boss_Item : MonoBehaviour
     public float speed = 2.0f;
 
     Vector3 dir = Vector3.zero;
+    public float gravityScale = 0.5f;
+    private Rigidbody2D rb;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -27,7 +29,8 @@ public class Boss_Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
+        rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = gravityScale;
     }
 
     // Update is called once per frame

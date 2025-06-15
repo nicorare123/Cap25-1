@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
                 maxHP = 30;
                 break;
             case EnemyType.Boss:
-                maxHP = 300;
+                maxHP = 350;
                 break;
         }
 
@@ -291,7 +291,7 @@ public class Enemy : MonoBehaviour
     }
 
     int spreadCount = 0;
-    float spreadDelay = 0.3f;
+    float spreadDelay = 0.4f;
     bool spreadFired = false;
     void SpreadShoot(float aa)
     {
