@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyType { Melee, Ranged, Elite, Boss }
-public enum EnemyState { Idle, Chase, MeleeAttack, Shoot }
+public enum EnemyState { Idle, Chase, Shoot }
 public enum EliteState { Triple, Spread, Rain, Sweep, RandomSpread, Wait }
 
 public enum BossState { Triple, Spread, Rain, Sweep, RandomSpread, Wait }
@@ -110,18 +110,9 @@ public class Enemy : MonoBehaviour
             currentState = EnemyState.Idle;
             Idle();
             return;
-        }
-
-        if(xDiff <= meleeAttackRange)
-        {
-            currentState = EnemyState.MeleeAttack;
-            MeleeAttack();
-        }
-        else
-        {
+        }     
             currentState = EnemyState.Chase;
             Chase();
-        }
     }
 
     void RangedEnemy()
@@ -135,8 +126,9 @@ public class Enemy : MonoBehaviour
 
         if(distance <= meleeAttackRange && absYDiff < verticalRange)
         {
-            currentState = EnemyState.MeleeAttack;
-            MeleeAttack();
+            currentState = EnemyState.Chase;
+            Chase();
+            return;
         }
         else if(distance <= shootRange)
         {
@@ -251,7 +243,7 @@ public class Enemy : MonoBehaviour
         {
             isAttacking = true;
             shootTimer = 0;
-            Debug.Log("현재 패턴 : " + eliteState);
+            Debug.Log("현재 패턴 : " + bossState);
         }
 
         switch (bossState)
@@ -453,12 +445,20 @@ public class Enemy : MonoBehaviour
 
     void Idle()
     {
-        Debug.Log("Wait");
+        //Debug.Log("Wait");
     }
 
-    void MeleeAttack()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Melee Attack");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerMove player = collision.gameObject.GetComponent<PlayerMove>();
+            if (player != null)
+            {
+                player.TakeDamage();
+                Debug.Log($"{enemyType} 적이 플레이어에게 충돌 데미지 줌");
+            }
+        }
     }
 
     void Shoot()

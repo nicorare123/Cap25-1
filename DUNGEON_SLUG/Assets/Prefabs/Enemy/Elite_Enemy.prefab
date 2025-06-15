@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6974357ba74a9744aa70e14af585d9af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a364fbee956d704bb751f4308e5e2f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   enemyType: 2
   currentState: 0
   eliteState: 5
+  bossState: 5
   Player: {fileID: 0}
   moveSpeed: 3
   meleeAttackRange: 2.2
@@ -146,8 +147,8 @@ BoxCollider2D:
   m_Offset: {x: -0.0067863464, y: 0.9227221}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.50969005, y: 0.16085267}
-    oldSize: {x: 2.9257143, y: 2.9257143}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.878788, y: 3.878788}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
