@@ -113,8 +113,6 @@ public class PlayerMove : MonoBehaviour
         if (isTitleScene) return;
         livesText.text = "x " + lives.ToString();
     }
-
-    public GameObject gameOverPanel;
     private bool isDead = false;
     private bool isInvincible = false;
 
@@ -195,12 +193,16 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
-
     void GameOver()
     {
         isDead = true;
         animator.SetBool("IsDie", true);
-        gameOverPanel.SetActive(true);
+        GameManager.instance.GameOver();
+    }
+    public void GameClear()
+    {
+        isDead = true;
+        GameManager.instance.GameClear();
     }
 
     void UpdateWeaponUI()

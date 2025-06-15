@@ -77,7 +77,11 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Debug.Log($"{enemyType} Àû »ç¸Á");
+        if (enemyType == EnemyType.Boss)
+        {
+            GameManager.instance.GameClear();
+        }
+
         Destroy(gameObject);
     }
     // Update is called once per frame
