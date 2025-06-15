@@ -328,7 +328,7 @@ public class Enemy : MonoBehaviour
     }
 
     int rainCount = 0;
-    float rainDelay = 0.3f;
+    float rainDelay = 0.4f;
 
     void RainShoot()
     {
@@ -339,7 +339,7 @@ public class Enemy : MonoBehaviour
             shootTimer = 0;
             rainCount++;
 
-            float x = Random.Range(Player.position.x - 7f, Player.position.x + 7f);
+            float x = Random.Range(Player.position.x - 8f, Player.position.x + 8f);
             float y = Player.position.y + 10f;
             Vector2 spawnPos = new Vector2(x, y);
 
@@ -357,7 +357,7 @@ public class Enemy : MonoBehaviour
     }
 
     int sweepCount = 0;
-    float sweepDelay = 0.3f;
+    float sweepDelay = 0.5f;
     void SweepShoot()
     {
         shootTimer += Time.deltaTime;
@@ -367,7 +367,7 @@ public class Enemy : MonoBehaviour
             shootTimer = 0;
             sweepCount++;
 
-            float y = Random.Range(Player.position.y, Player.position.y + 7f);
+            float y = Random.Range(Player.position.y, Player.position.y + 8f);
 
             bool fromLeft = Random.Range(0, 2) == 0;
             Vector2 spawnPos;
@@ -380,7 +380,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                spawnPos = new Vector2(Player.position.x + 10f, y);
+                spawnPos = new Vector2(Player.position.x + 12f, y);
                 direction = Vector2.left;
             }
 
